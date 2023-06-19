@@ -1,0 +1,23 @@
+---
+- name: Patching Root Reboot
+   hosts: your_redhat_host
+   become: true
+
+  tasks:
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+      register: update_result
+
+    - name: Reboot if required
+      reboot:
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+      when: update_result.changed
+
+    - name: Wait for the system to reboot
+      wait_for_connection:
+
+    - name: Verify system connectivity
+      ping:
