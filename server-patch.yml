@@ -1,6 +1,6 @@
 ---
 - name: Patching Root Reboot
-   hosts: your_redhat_host
+   hosts: client
    become: true
 
   tasks:
